@@ -26,14 +26,21 @@ def library(lat, long):
         return []
     
 
-def get_education(lat, long):
+def get_education(lat, long, Fore, Style):
     num_schools = len(school(lat, long))
     num_universities = len(university(lat, long))
     num_libraries = len(library(lat, long))
+
+    print(Fore.CYAN + "\033[1mEDUCATION:-\033[0m" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Schools: {num_schools}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Universities: {num_universities}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Libraries: {num_libraries}" + Style.RESET_ALL)
 
     # Calculate the education score
     education_score = (num_schools * const.WEIGHTS['school']) + \
                       (num_universities * const.WEIGHTS['university']) + \
                       (num_libraries * const.WEIGHTS['library'])
+    
+    print(Fore.MAGENTA + f"Education Score: {education_score:.2f}" + Style.RESET_ALL)
 
     return education_score

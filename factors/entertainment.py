@@ -76,7 +76,7 @@ def swimming_pool(lat, long):
         return []
 
 
-def get_entertainment(lat, long):
+def get_entertainment(lat, long, Fore, Style):
     park_count = len(park(lat, long))
     theatre_count = len(theatre(lat, long))
     museum_count = len(museum(lat, long))
@@ -86,6 +86,17 @@ def get_entertainment(lat, long):
     playground_count = len(playground(lat, long))
     sports_centre_count = len(sports_centre(lat, long))
     swimming_pool_count = len(swimming_pool(lat, long))
+
+    print(Fore.CYAN + "\033[1mENTERTAINMENT:-\033[0m" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Parks: {park_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Theatres: {theatre_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Museums: {museum_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Cinemas: {cinema_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Art Galleries: {art_gallery_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Zoos: {zoo_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Playgrounds: {playground_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Sports Centres: {sports_centre_count}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Swimming Pools: {swimming_pool_count}" + Style.RESET_ALL)
 
     entertainment_score = (
         park_count * const.WEIGHTS['park'] +
@@ -98,5 +109,7 @@ def get_entertainment(lat, long):
         sports_centre_count * const.WEIGHTS['sports_centre'] +
         swimming_pool_count * const.WEIGHTS['swimming_pool']
     )
+
+    print(Fore.MAGENTA + f"Entertainment Score: {entertainment_score:.2f}" + Style.RESET_ALL)
 
     return entertainment_score

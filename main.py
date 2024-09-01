@@ -24,17 +24,15 @@ def main():
     print(Fore.BLUE + "\nCalculating scores..." + Style.RESET_ALL)
 
     category_scores = {
-        'Education': education.get_education(latitude, longitude),
-        'Healthcare': health.get_health(latitude, longitude),
-        'Finance': finance.get_finance(latitude, longitude),
-        'Entertainment': entertainment.get_entertainment(latitude, longitude)
+        'Education': education.get_education(latitude, longitude, Fore, Style),
+        'Healthcare': health.get_health(latitude, longitude, Fore, Style),
+        'Finance': finance.get_finance(latitude, longitude, Fore, Style),
+        'Entertainment': entertainment.get_entertainment(latitude, longitude, Fore, Style)
     }
 
     total_score = calculate_total_score(category_scores)
 
     print(Fore.BLUE + "\nResults:" + Style.RESET_ALL)
-    print(Fore.GREEN + f"Latitude: {latitude}" + Style.RESET_ALL)
-    print(Fore.GREEN + f"Longitude: {longitude}" + Style.RESET_ALL)
     print(Fore.CYAN + f"Total Score: {total_score:.2f}" + Style.RESET_ALL)
 
     if total_score >= 80:
