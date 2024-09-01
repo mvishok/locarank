@@ -1,11 +1,6 @@
 import const
 import requests
 
-# Weights
-weight_school = 1.0
-weight_university = 2.0
-weight_library = 0.5
-
 def school(lat, long):
     osm_education_url = f'https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="school"](around:{const.RADIUS},{lat},{long});out;'
     response = requests.get(osm_education_url)
@@ -37,8 +32,8 @@ def get_education(lat, long):
     num_libraries = len(library(lat, long))
 
     # Calculate the education score
-    education_score = (num_schools * weight_school) + \
-                      (num_universities * weight_university) + \
-                      (num_libraries * weight_library)
+    education_score = (num_schools * const.WEIGHTS['school']) + \
+                      (num_universities * const.WEIGHTS['university']) + \
+                      (num_libraries * const.WEIGHTS['library'])
 
     return education_score

@@ -1,20 +1,6 @@
 import const
 import requests
 
-# Weights for each entertainment category
-
-park_weight = 2
-theatre_weight = 4
-museum_weight = 3
-cinema_weight = 4
-art_gallery_weight = 3
-zoo_weight = 5
-playground_weight = 2
-sports_centre_weight = 4
-swimming_pool_weight = 3
-
-# -------------
-
 def park(lat, long):
     osm_entertainment_url = f'https://overpass-api.de/api/interpreter?data=[out:json];node["leisure"="park"](around:{const.RADIUS},{lat},{long});out;'
     response = requests.get(osm_entertainment_url)
@@ -102,15 +88,15 @@ def get_entertainment_score(lat, long):
     swimming_pool_count = len(swimming_pool(lat, long))
 
     entertainment_score = (
-        park_count * park_weight +
-        theatre_count * theatre_weight +
-        museum_count * museum_weight +
-        cinema_count * cinema_weight +
-        art_gallery_count * art_gallery_weight +
-        zoo_count * zoo_weight +
-        playground_count * playground_weight +
-        sports_centre_count * sports_centre_weight +
-        swimming_pool_count * swimming_pool_weight
+        park_count * const.WEIGHTS['park'] +
+        theatre_count * const.WEIGHTS['theatre'] +
+        museum_count * const.WEIGHTS['museum'] +
+        cinema_count * const.WEIGHTS['cinema'] +
+        art_gallery_count * const.WEIGHTS['art_gallery'] +
+        zoo_count * const.WEIGHTS['zoo'] +
+        playground_count * const.WEIGHTS['playground'] +
+        sports_centre_count * const.WEIGHTS['sports_centre'] +
+        swimming_pool_count * const.WEIGHTS['swimming_pool']
     )
 
     return entertainment_score
