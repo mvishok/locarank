@@ -1,4 +1,4 @@
-import const
+from factors import const
 import requests
 
 def school(lat, long):

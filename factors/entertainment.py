@@ -1,4 +1,4 @@
-import const
+from factors import const
 import requests
 
 def park(lat, long):
@@ -76,7 +76,7 @@ def swimming_pool(lat, long):
         return []
 
 
-def get_entertainment_score(lat, long):
+def get_entertainment(lat, long):
     park_count = len(park(lat, long))
     theatre_count = len(theatre(lat, long))
     museum_count = len(museum(lat, long))

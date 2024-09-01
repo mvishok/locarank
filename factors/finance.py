@@ -1,5 +1,5 @@
 import requests
-import const
+from factors import const
 
 def bank(lat, long):
     osm_finance_url = f'https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="bank"](around:{const.RADIUS},{lat},{long});out;'
