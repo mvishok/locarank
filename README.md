@@ -22,3 +22,6 @@
 - pharmacy
 - dentist
 
+## Finance
+- bank
+- atm
