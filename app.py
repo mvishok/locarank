@@ -1,7 +1,7 @@
 import colorama
 from colorama import Fore, Style
 import factors.const as const
-from factors import education, finance, health, entertainment
+from factors import education, finance, health, entertainment, safety
 from flask import Flask, request
 
 from flasgger import Swagger
@@ -14,7 +14,10 @@ def calculate_total_score(scores):
     for category, score in scores.items():
         weight = const.CATEGORY.get(category, 0)
         total_score += score * weight
-
+    
+    # map 486.1 to 100
+    total_score = (total_score / 486.1) * 100
+    
     return total_score
 
 app = Flask(__name__)
@@ -90,7 +93,8 @@ def score():
         'Education': education.get_education(latitude, longitude, Fore, Style),
         'Healthcare': health.get_health(latitude, longitude, Fore, Style),
         'Finance': finance.get_finance(latitude, longitude, Fore, Style),
-        'Entertainment': entertainment.get_entertainment(latitude, longitude, Fore, Style)
+        'Entertainment': entertainment.get_entertainment(latitude, longitude, Fore, Style),
+        'Safety': safety.get_safety(latitude, longitude, Fore, Style)
     }
 
     total_score = calculate_total_score(category_scores)
@@ -102,5 +106,17 @@ def score():
 
     return result
 
+@app.route('/temp')
+def temp():
+    return {
+      "category": {
+        "Education": 0.5,
+        "Entertainment": 0,
+        "Finance": 25,
+        "Healthcare": 105,
+        "Safety": 0.8
+      },
+      "total_score": 4.9043406706439
+    }
 if __name__ == '__main__':
     app.run(debug=True)

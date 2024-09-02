@@ -1,6 +1,6 @@
 import colorama
 from colorama import Fore, Style
-from factors import const, education, finance, health, entertainment, crime
+from factors import const, education, finance, health, entertainment, safety
 import numpy as np
 
 colorama.init(autoreset=True)
@@ -95,10 +95,10 @@ def main():
     final_city_score = calculate_final_city_score(category_scores)
 
     # Fetch crime data and adjust the final score
-    crime_data = crime.fetch_crime_data_from_file('crimerate.csv')
-    median_crime_rate = crime.calculate_median_crime_rate(crime_data)
-    nearest_city = crime.find_nearest_city(latitude, longitude, crime.city_coordinates)
-    crime_rate = crime.get_crime_rate_for_city(nearest_city, crime_data) if nearest_city else None
+    crime_data = safety.fetch_crime_data_from_file('crimerate.csv')
+    median_crime_rate = safety.calculate_median_crime_rate(crime_data)
+    nearest_city = safety.find_nearest_city(latitude, longitude, safety.city_coordinates)
+    crime_rate = safety.get_crime_rate_for_city(nearest_city, crime_data) if nearest_city else None
 
     if crime_rate is not None:
         final_city_score_adjusted = safety_adjustment(final_city_score, crime_rate, median_crime_rate)

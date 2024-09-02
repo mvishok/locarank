@@ -18,15 +18,18 @@ def atm(lat, long):
         return []
     
 def get_finance(lat, long, Fore, Style):
-    banks = bank(lat, long)
-    atms = atm(lat, long)
+    banks = len(bank(lat, long))
+    atms = len(atm(lat, long))
 
     print(Fore.CYAN + "\033[1mFINANCE:-\033[0m" + Style.RESET_ALL)
-    print(Fore.CYAN + f"Banks: {len(banks)}" + Style.RESET_ALL)
-    print(Fore.CYAN + f"ATMs: {len(atms)}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Banks: {banks}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"ATMs: {atms}" + Style.RESET_ALL)
+
+    if banks > 50: banks = 50
+    if atms > 60: atms = 60
 
     # Calculate scores
-    finance_score = (len(banks) * const.WEIGHTS['bank']) + (len(atms) * const.WEIGHTS['atm'])
+    finance_score = (banks * const.WEIGHTS['bank']) + (atms * const.WEIGHTS['atm'])
 
     print(Fore.MAGENTA + f"Finance Score: {finance_score:.2f}" + Style.RESET_ALL)
 

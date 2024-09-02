@@ -108,11 +108,11 @@ def find_nearest_city(lat, lon, city_coordinates):
     return nearest_city
 
 def get_crime_rate_for_city(city_name, crime_data):
-     #Get the 'Total Cognizable IPC Crimes (Excluding Sub Heads) - R (Col. 267)' for a specific city from the crime data.
+     #Get the 'crime' for a specific city from the crime data.
     for data in crime_data:
-        if data['Cities (Col. 3)'].strip().lower() == city_name.lower():
+        if data['city'].strip().lower() == city_name.lower():
             try:
-                return float(data['Total Cognizable IPC Crimes (Excluding Sub Heads) - R (Col. 267)'])
+                return float(data['crime'])
             except (KeyError, ValueError) as e:
                 print(f"Error parsing crime rate for city: {city_name}, Error: {e}")
                 return None
@@ -141,8 +141,36 @@ def classify_safety(crime_rate, median_crime_rate):
 def calculate_median_crime_rate(crime_data):
     # Extract the crime rates from the dataset
     crime_rates = [
-        float(data['Total Cognizable IPC Crimes (Excluding Sub Heads) - R (Col. 267)'])
+        float(data['crime'])
         for data in crime_data
-        if data['Total Cognizable IPC Crimes (Excluding Sub Heads) - R (Col. 267)'].replace('.', '', 1).isdigit()
+        if data['crime'].replace('.', '', 1).isdigit()
     ]
     return statistics.median(crime_rates)
+
+def get_safety(lat, long, fore, style):
+    crime_data = fetch_crime_data_from_file('C:\\Users\\mmani\\Desktop\\locarank\\factors\\crimerate.csv')
+    median_crime_rate = calculate_median_crime_rate(crime_data)
+    nearest_city = find_nearest_city(lat, long, city_coordinates)
+    crime_rate = get_crime_rate_for_city(nearest_city, crime_data) if nearest_city else None
+
+    if crime_rate is not None:
+        deviation = crime_rate - median_crime_rate
+
+        # Classification based on deviation
+        if deviation <= -200:
+            return 1
+        elif -200 < deviation <= -100:
+            return 0.8
+        elif -100 < deviation <= -50:
+            return 0.7
+        elif -50 < deviation <= 0:
+            return 0.6
+        elif 0 < deviation <= 50:
+            return 0.5
+        elif 50 < deviation <= 200:
+            return 0.3
+        else:
+            return 0.1
+    else:
+        print(f"{fore}Crime rate not available for the nearest city.")
+        return 0

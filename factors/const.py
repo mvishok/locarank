@@ -5,6 +5,7 @@ WEIGHTS = {
     'school': 1.0,
     'university': 2.0,
     'library': 0.5,
+    'college': 1.5,
 
     # Entertainment
     'park': 2,
@@ -28,18 +29,9 @@ WEIGHTS = {
 }
 
 CATEGORY = {
-    'Education': 0.10,
-    'Healthcare': 0.15,
-    'Food & Drinks': 0.10,
+    'Education': 0.20,
+    'Healthcare': 0.20,
     'Finance': 0.10,
-    'Public Amenities': 0.10,
-    'Entertainment': 0.10,
-    'Transportation': 0.10,
-    'Accommodation': 0.05,
-    'Nature': 0.05,
-    'Infrastructure': 0.05,
-    'Shopping': 0.05,
-    'Nightlife': 0.05,
-    'Safety': 0.05,
-    'Crime Rate': 0.05
+    'Entertainment': 0.20,
+    'Safety': 0.3
 }

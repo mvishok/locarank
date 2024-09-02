@@ -87,6 +87,16 @@ def get_entertainment(lat, long, Fore, Style):
     sports_centre_count = len(sports_centre(lat, long))
     swimming_pool_count = len(swimming_pool(lat, long))
 
+    if (park_count > 10): park_count = 10
+    if (theatre_count > 10): theatre_count = 10
+    if (museum_count > 1): museum_count = 1
+    if (cinema_count > 5): cinema_count = 5
+    if (art_gallery_count > 3): art_gallery_count = 3
+    if (zoo_count > 1): zoo_count = 1
+    if (playground_count > 10): playground_count = 10
+    if (sports_centre_count > 5): sports_centre_count = 5
+    if (swimming_pool_count > 5): swimming_pool_count = 5
+
     print(Fore.CYAN + "\033[1mENTERTAINMENT:-\033[0m" + Style.RESET_ALL)
     print(Fore.CYAN + f"Parks: {park_count}" + Style.RESET_ALL)
     print(Fore.CYAN + f"Theatres: {theatre_count}" + Style.RESET_ALL)

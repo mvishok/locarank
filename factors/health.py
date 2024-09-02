@@ -27,19 +27,25 @@ def dentist(lat, long):
 
 def get_health(lat, long, Fore, Style):
     # Fetch health facilities
-    hospitals = hospital(lat, long)
-    pharmacies = pharmacy(lat, long)
-    dentists = dentist(lat, long)
+    hospitals = len(hospital(lat, long))
+    pharmacies = len(pharmacy(lat, long))
+    dentists = len(dentist(lat, long))
 
     print(Fore.CYAN + "\033[1mHEALTHCARE:-\033[0m" + Style.RESET_ALL)
-    print(Fore.CYAN + f"Hospitals: {len(hospitals)}" + Style.RESET_ALL)
-    print(Fore.CYAN + f"Pharmacies: {len(pharmacies)}" + Style.RESET_ALL)
-    print(Fore.CYAN + f"Dentists: {len(dentists)}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Hospitals: {hospitals}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Pharmacies: {pharmacies}" + Style.RESET_ALL)
+    print(Fore.CYAN + f"Dentists: {dentists}" + Style.RESET_ALL)
+
+
+    if (hospitals) > 90: hospitals = 90
+    if (pharmacies) > 60: pharmacies = 60
+    if (dentists) > 10: dentists = 10
+
 
     # Calculate scores
-    health_score = (len(hospitals) * const.WEIGHTS['hospital']) + \
-                   (len(pharmacies) * const.WEIGHTS['pharmacy']) + \
-                   (len(dentists) * const.WEIGHTS['dentist'])
+    health_score = (hospitals * const.WEIGHTS['hospital']) + \
+                   (pharmacies * const.WEIGHTS['pharmacy']) + \
+                   (dentists * const.WEIGHTS['dentist'])
     
     print(Fore.MAGENTA + f"Healthcare Score: {health_score:.2f}" + Style.RESET_ALL)
 
