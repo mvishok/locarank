@@ -2,7 +2,7 @@ import colorama
 from colorama import Fore, Style
 import factors.const as const
 from factors import education, finance, health, entertainment, safety
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from flasgger import Swagger
 
@@ -106,17 +106,9 @@ def score():
 
     return result
 
-@app.route('/temp')
-def temp():
-    return {
-      "category": {
-        "Education": 0.5,
-        "Entertainment": 0,
-        "Finance": 25,
-        "Healthcare": 105,
-        "Safety": 0.8
-      },
-      "total_score": 4.9043406706439
-    }
+@app.route('/v')
+def version():
+    return render_template('index.html')
+    
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('0.0.0.0', port=80, debug=True)
